@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 import { restBase } from "../utilities/Utilities";
 import Loading from "../utilities/Loading";
+import ProjectCard from "../components/Project";
 
 function Projects() {
   const [projects, setProjects] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    const restPath = restBase + `pfh-project`;
+    const restPath = restBase + `pfh-project?_embed`;
 
     const fetchProjects = async () => {
       try {
         const res = await fetch(restPath);
         const data = await res.json();
-
         console.log(data);
         setProjects(data);
         setIsLoaded(true);
@@ -29,18 +29,13 @@ function Projects() {
     <div className="p-4">
       <h2 className="text-2xl mb-4">Front-End Projects</h2>
       {isLoaded ? (
-        <ul>
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => (
-            <li key={project.id} className="mb-2">
-              <h3 className="text-lg font-semibold">
-                {project.title.rendered}
-              </h3>
-              <div />
-            </li>
+            <ProjectCard key={project.id} project={project} />
           ))}
-        </ul>
+        </div>
       ) : (
-        <p>Loading projects...</p>
+        <Loading />
       )}
     </div>
   );

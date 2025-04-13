@@ -1,19 +1,25 @@
 import { useState, useEffect } from "react";
 import { restBase } from "../utilities/Utilities";
-import Loading from "../utilities/Loading";
+import Loading from "./Loading";
+import ProjectCard from "../components/Project";
 
 function FeatureProjects() {
   const [projects, setProjects] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    const restPath = restBase + `pfh-project`;
+    const restPath = `${restBase}pfh-project?_embed`;
 
     const fetchProjects = async () => {
       try {
         const res = await fetch(restPath);
         const data = await res.json();
-        setProjects(data);
+
+        const featured = data
+          .filter((project) => project["pfh-featured"]?.length > 0)
+          .slice(0, 2);
+
+        setProjects(featured);
         setIsLoaded(true);
       } catch (error) {
         console.error("Error fetching projects:", error);
@@ -23,26 +29,17 @@ function FeatureProjects() {
     fetchProjects();
   }, []);
 
+  if (!isLoaded) return <Loading />;
+
   return (
-    <div className="p-4">
-      <h2 className="text-2xl mb-4">Front-End Projects</h2>
-      {isLoaded ? (
-        <ul>
-          {projects.map((project) => (
-            <li key={project.id} className="mb-2">
-              <h3 className="text-lg font-semibold">
-                {project.title.rendered}
-              </h3>
-              <div
-              // dangerouslySetInnerHTML={{ __html: project.excerpt.rendered }}
-              />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Loading projects...</p>
-      )}
-    </div>
+    <section id="projects" className="p-4">
+      <h2 className="text-2xl font-bold mb-6">Featured Projects</h2>
+      <div className="grid md:grid-cols-2 gap-6">
+        {projects.map((project) => (
+          <ProjectCard key={project.id} project={project} />
+        ))}
+      </div>
+    </section>
   );
 }
 

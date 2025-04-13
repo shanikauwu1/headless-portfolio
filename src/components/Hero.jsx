@@ -17,6 +17,7 @@ function Hero() {
           throw new Error("Failed to fetch data");
         }
         const data = await response.json();
+        console.log(data);
         setData(data); // Pages are returned as an array, so we access the first item
         setLoadStatus(true);
       } catch (error) {

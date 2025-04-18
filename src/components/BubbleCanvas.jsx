@@ -12,10 +12,18 @@ const BubbleCanvas = () => {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
+    const getResponsiveRadius = () => {
+      const baseRadius = 210;
+      if (window.innerWidth < 768) {
+        return baseRadius * 0.6; // Reduce to 60% on mobile
+      }
+      return baseRadius;
+    };
+
     const bubble = {
       x: width / 2,
       y: height / 2,
-      radius: 210, // Bigger bubble
+      radius: getResponsiveRadius(),
       vx: 1.1,
       vy: 0.6,
     };
@@ -31,6 +39,7 @@ const BubbleCanvas = () => {
     window.addEventListener("resize", () => {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
+      bubble.radius = getResponsiveRadius(); // Recalculate radius
     });
 
     window.addEventListener("mousemove", (e) => {
@@ -111,8 +120,8 @@ const BubbleCanvas = () => {
       const dynamicRadius = bubble.radius * pulse;
 
       // Colors
-      const colorStart = isMouseActive ? "#ffffff" : "#ffffff";
-      const colorEnd = isMouseActive ? "#b0c4b1" : "#f08080";
+      const colorStart = isMouseActive ? "#cd2028" : "#cd2028";
+      const colorEnd = isMouseActive ? "#cd2028" : "#cd2028";
 
       drawSmoothBlob(
         bubble.x,

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { FaSun, FaMoon } from "react-icons/fa";
 
 // Function to toggle the theme (light/dark) based on user preference
 function ThemeToggle() {
@@ -19,9 +20,13 @@ function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="bg-gray-800 dark:bg-primary p-1 rounded-full"
+      className="bg-gray-800 dark:bg-light_text p-2 rounded-full"
     >
-      {theme === "light" ? "🌙" : "☀️"}
+      {theme === "light" ? (
+        <FaMoon className="text-white" size={20} />
+      ) : (
+        <FaSun className="text-yellow-500" size={20} />
+      )}
     </button>
   );
 }

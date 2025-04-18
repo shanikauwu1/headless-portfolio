@@ -32,9 +32,11 @@ function FeatureProjects() {
   if (!isLoaded) return <Loading />;
 
   return (
-    <section id="projects" className="p-4">
-      <h2 className="text-2xl font-bold mb-6">Featured Projects</h2>
-      <div className="grid md:grid-cols-2 gap-6">
+    <section
+      id="projects"
+      className="p-4 lg:p-8 lg:w-2/3 mx-auto bg-primary rounded-2xl "
+    >
+      <div className="grid md:grid-cols-2 gap-12">
         {projects.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}

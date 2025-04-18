@@ -12,6 +12,15 @@ export default {
         dark: "#14213d", // Dark gray color
         light: "ffe5d9", // Light gray color
       },
+      animation: {
+        float: "float 3s ease-in-out infinite",
+      },
+      keyframes: {
+        float: {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+      },
     },
   },
   plugins: [],

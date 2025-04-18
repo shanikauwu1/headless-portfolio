@@ -1,104 +1,145 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
-  // State to manage the visibility of the menu on mobile
+  const location = useLocation();
+
+  // check the path
+  // Check if the current path is not the home page
+  //const isNotHomePage = location.pathname !== "/";
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Function to toggle the menu
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   return (
-    <nav className="flex justify-between items-center py-8 px-6 bg-primary text-light_text text-2xl lg:px-16 dark:text-white dark:bg-black">
-      <ThemeToggle />
+    <nav
+      className={`flex justify-between items-center py-8 px-6 text-dark text-2xl lg:px-16 dark:text-white relative"
+      }`}
+    >
+      {/* Logo */}
+      <a
+        href="#home"
+        className="text-4xl font-semibold bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent opacity-90 transition-all duration-300"
+      >
+        SHANIKA E.
+      </a>
 
-      {/* Hamburger Icon */}
-      <div className="block lg:hidden">
-        <button onClick={toggleMenu} className="text-white">
-          {/* Hamburger icon */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            strokeWidth="2"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M4 6h16M4 12h16M4 18h16"
-            ></path>
-          </svg>
+      {/* Hamburger / Close Icon */}
+      <div className="block lg:hidden z-50">
+        <button
+          onClick={toggleMenu}
+          className="text-primary dark:text-white  focus:outline-none"
+        >
+          {isMenuOpen ? (
+            // X icon
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          ) : (
+            // Hamburger icon
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              strokeWidth="2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          )}
         </button>
       </div>
 
-      {/* Navbar Links */}
+      {/* Nav Links */}
       <ul
-        className={`lg:flex lg:space-x-6 ${
-          isMenuOpen ? "block" : "hidden"
-        } lg:block space-y-4 lg:space-y-0`}
+        className={`
+    lg:flex lg:space-x-6
+    ${
+      isMenuOpen
+        ? "fixed inset-0 bg-secondary dark:bg-black dark:text-light_text text-light_text flex flex-col justify-center items-center space-y-8 z-40 lg:hidden"
+        : "hidden lg:flex"
+    }
+    space-y-4 lg:space-y-0
+  `}
       >
-        <li className="group relative">
+        {/* Nav Items */}
+        <li>
           <NavLink
             to="/"
+            onClick={() => isMenuOpen && toggleMenu()}
             className={({ isActive }) =>
-              isActive ? "text-dark" : "hover:underline"
+              isActive ? "text-primary  dark:text-primary" : "hover:underline"
             }
             end
           >
             Home
           </NavLink>
-          {/* Underline animation */}
-          <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-dark transition-all duration-300 group-hover:w-full"></span>
         </li>
-        <li className="group relative">
+        <li>
           <NavLink
             to="/about"
+            onClick={() => isMenuOpen && toggleMenu()}
             className={({ isActive }) =>
-              isActive ? "text-dark" : "hover:underline"
+              isActive ? "text-primary dark:text-primary" : "hover:underline"
             }
           >
             About
           </NavLink>
-          {/* Underline animation */}
-          <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-dark transition-all duration-300 group-hover:w-full"></span>
         </li>
-        <li className="group relative">
+        <li>
           <NavLink
             to="/projects"
+            onClick={() => isMenuOpen && toggleMenu()}
             className={({ isActive }) =>
-              isActive ? "text-dark" : "hover:underline"
+              isActive ? "text-primary  dark:text-primary" : "hover:underline"
             }
           >
             Projects
           </NavLink>
-          {/* Underline animation */}
-          <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-dark transition-all duration-300 group-hover:w-full"></span>
         </li>
-        <li className="group relative">
+        <li>
           <NavLink
             to="/contact"
+            onClick={() => isMenuOpen && toggleMenu()}
             className={({ isActive }) =>
-              isActive ? "text-dark" : "hover:underline"
+              isActive ? "text-primary   dark:text-primary" : "hover:underline"
             }
           >
             Contact
           </NavLink>
-          {/* Underline animation */}
-          <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-dark transition-all duration-300 group-hover:w-full"></span>
+        </li>
+
+        <li>
+          <ThemeToggle />
         </li>
       </ul>
 
-      <a
-        href="#home"
-        className="text-4xl font-semibold bg-gradient-to-r from-white to-green-600 bg-clip-text text-transparent opacity-90 transition-all duration-300"
-      >
-        SE
-      </a>
+      {/* Theme Toggle (mobile menu) */}
+      {isMenuOpen && (
+        <div className="absolute bottom-10">
+          <ThemeToggle />
+        </div>
+      )}
     </nav>
   );
 };

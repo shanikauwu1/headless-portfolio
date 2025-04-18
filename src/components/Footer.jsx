@@ -2,7 +2,7 @@ import { FaLinkedin, FaGithub } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-secondary text-white py-4">
+    <footer className="bg-primary text-white py-4">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-center items-center space-x-6">
           {/* LinkedIn Icon */}
@@ -26,7 +26,7 @@ const Footer = () => {
         </div>
 
         {/* Optional: Footer text */}
-        <p className="mt-4 text-center text-sm text-dark">
+        <p className="mt-4 text-center text-sm text-light_text">
           &copy; {new Date().getFullYear()} Shanika Ekanayake.
         </p>
       </div>

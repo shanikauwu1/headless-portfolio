@@ -40,16 +40,25 @@ function Contact() {
   if (!isLoaded) return <Loading />;
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white shadow rounded-lg text-center">
-      <h1 className="text-3xl font-bold mb-4">{restData?.acf?.heading}</h1>
+    <section className=" flex flex-col justify-center items-center min-h-[70vh]">
+      <h1 className="text-5xl font-bold mb-12 dark:text-light_text">
+        {restData?.acf?.heading}
+      </h1>
 
-      <div className="flex justify-center gap-6 text-4xl text-blue-600">
+      <div className="flex justify-center items-center gap-6 text-7xl text-primary ">
         {restData?.acf?.icons?.map((item, idx) => {
           const Icon = iconComponents[item["react-icon"]];
-          return Icon ? <Icon key={idx} /> : null;
+          return Icon ? (
+            <div
+              key={idx}
+              className="hover:text-accent transition-colors duration-300 cursor-pointer"
+            >
+              <Icon />
+            </div>
+          ) : null;
         })}
       </div>
-    </div>
+    </section>
   );
 }
 

@@ -114,7 +114,7 @@ function Hero() {
               </motion.h2>
 
               {/* ACF Title */}
-              <h3 className="text-3xl font-bold md:text-5xl text-dark mb-3 md:font-medium dark:text-light_text">
+              <h3 className="text-3xl font-bold md:text-4xl text-dark mb-3 md:font-medium dark:text-light_text">
                 <Typewriter
                   words={
                     restData?.acf?.title

@@ -43,14 +43,18 @@ function Skills() {
 
   return (
     <div className="px-6 py-12 min-h-fit">
-      <h2 className="text-4xl font-bold  mb-10">My Skills</h2>
+      <h2 className="text-4xl font-bold text-dark mb-10 dark:text-light_text">
+        My Skills
+      </h2>
 
       {/* Tabs */}
       <div className="flex justify-center gap-4 mb-8">
         <button
           onClick={() => setActiveTab("all")}
           className={`px-4 py-2 rounded ${
-            activeTab === "all" ? "bg-dark text-white" : "bg-gray-200"
+            activeTab === "all"
+              ? "bg-dark text-white dark:bg-accent"
+              : "bg-gray-200"
           }`}
         >
           All
@@ -61,7 +65,7 @@ function Skills() {
             onClick={() => setActiveTab(cat.id.toString())}
             className={`px-4 py-2 rounded ${
               activeTab === cat.id.toString()
-                ? "bg-dark text-white"
+                ? "bg-dark text-white dark:bg-accent"
                 : "bg-gray-200"
             }`}
           >

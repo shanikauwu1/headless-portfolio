@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { restBase } from "../utilities/Utilities";
 import Loading from "../utilities/Loading";
+import { motion } from "framer-motion";
 
 // Import all icon packs you'll use
 import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa";
@@ -40,21 +41,37 @@ function Contact() {
   if (!isLoaded) return <Loading />;
 
   return (
-    <section className=" flex flex-col justify-center items-center min-h-[70vh]">
-      <h1 className="text-5xl font-bold mb-12 dark:text-light_text">
-        {restData?.acf?.heading}
-      </h1>
+    <section className="flex flex-col justify-center items-center min-h-[70vh]">
+      <motion.div
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ type: "spring", stiffness: 100, damping: 15 }}
+        whileHover={{ scale: 1.2, rotate: 3, color: "#f08181" }}
+        className="cursor-pointer"
+      >
+        <h1 className="text-5xl font-bold mb-12 text-secondary dark:text-light_text">
+          {restData?.acf?.heading}
+        </h1>
+      </motion.div>
 
-      <div className="flex justify-center items-center gap-6 text-7xl text-primary ">
+      <div className="flex justify-center items-center gap-6 text-7xl text-accent">
         {restData?.acf?.icons?.map((item, idx) => {
           const Icon = iconComponents[item["react-icon"]];
+          const url = item["url"];
+
           return Icon ? (
-            <div
+            <motion.div
               key={idx}
-              className="hover:text-accent transition-colors duration-300 cursor-pointer"
+              whileHover={{ scale: 1.2, rotate: 5, color: "#f43f5e" }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className="cursor-pointer"
             >
-              <Icon />
-            </div>
+              <div className="hover:text-dark dark:hover:text-light_text transition-colors duration-300">
+                <a href={url} target="_blank" rel="noopener noreferrer">
+                  <Icon />
+                </a>
+              </div>
+            </motion.div>
           ) : null;
         })}
       </div>

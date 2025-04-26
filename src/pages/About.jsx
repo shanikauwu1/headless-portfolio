@@ -5,6 +5,7 @@ import scollImage from "../assets/arrow-down.png";
 import Skills from "../components/Skills";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
 import bakeImg from "../assets/bakeAcake.gif";
+import { motion } from "framer-motion";
 
 function About() {
   const restPath = restBase + "pages/63?_fields=acf,title";
@@ -51,7 +52,7 @@ function About() {
 
   return (
     <div className="page-about mt-12 mb-12">
-      <section className=" py-16 px-6 md:px-20 bg-gradient-to-br from-white to-primary rounded-3xl">
+      <section className=" py-16 px-6 md:px-20 bg-light rounded-3xl">
         <title>{`Shanika Ekanayake | ${
           restData?.title?.rendered || "About"
         }`}</title>
@@ -84,7 +85,7 @@ function About() {
                 href="https://www.linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-2xl text-white hover:text-primary"
+                className="text-2xl text-accent hover:text-primary"
               >
                 <FaLinkedin size={60} />
               </a>
@@ -93,22 +94,43 @@ function About() {
                 href="https://github.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-2xl text-white hover:text-primary"
+                className="text-2xl text-accent hover:text-primary"
               >
                 <FaGithub size={60} />
               </a>
             </div>
           </div>
         </div>
-        <img src={scollImage} alt="Scrolling" className="w-[80px] h-[80px]" />
+        <motion.div
+          animate={{
+            y: [0, 20, 0],
+          }}
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className=" bottom-8 right-8 z-50 text-3xl text-primary cursor-pointer"
+        >
+          <a href="#education">
+            <img
+              src={scollImage}
+              alt="Scrolling"
+              className="w-[80px] h-[80px]"
+            />
+          </a>
+        </motion.div>
       </section>
 
       {/* {skill section} */}
-      <section className="mt-8 mb-8 p-8 md:p-12 rounded-3xl bg-gradient-to-br from-white to-secondary shadow-xl transition-all duration-300">
+      <section className="mt-8 mb-8 p-8 md:p-12 rounded-3xl bg-light shadow-xl transition-all duration-300">
         <Skills />
       </section>
       {/* Education */}
-      <section className="px-6 py-16 md:px-20 bg-gradient-to-br from-white to-primary rounded-3xl">
+      <section
+        id="education"
+        className="px-6 py-16 md:px-20 bg-light rounded-3xl"
+      >
         <h2 className="text-4xl font-semibold mb-6">My Education</h2>
         {restData.acf?.my_eductaion?.length > 0 && (
           <div className="space-y-4">
@@ -124,29 +146,29 @@ function About() {
         )}
       </section>
 
-      <section className="mt-8 mb-8 p-8 md:p-12 rounded-3xl bg-gradient-to-br from-white to-secondary shadow-xl transition-all duration-300">
-        <h2 className="text-4xl font-semibold">My Experience</h2>
+      <section className="mt-8 mb-8 p-8 md:p-12 rounded-3xl bg-light shadow-xl transition-all duration-300">
+        <h2 className="text-4xl font-semibold mb-8">My Experience</h2>
 
-        <div className="w-full max-w-4xl px-8 py-24 relative rounded-lg">
+        <div className="w-full max-w-4xl px-8 py-16 relative rounded-lg bg-white dark:bg-dark dark:text-light_text">
           {/* Vertical timeline line (full height) */}
-          <div className="absolute top-0 bottom-0 left-[307px] w-1 bg-pink-400 z-0"></div>
+          <div className="hidden lg:block  absolute top-0 bottom-0 left-[307px] w-1 bg-pink-400 z-0"></div>
 
           {restData.acf.experience.map((exp, index) => (
             <div key={index} className="relative mb-12 flex flex-wrap">
               {/* Left Side */}
-              <div className="w-full md:w-1/3 pr-8 text-right relative mb-4 md:mb-0">
+              <div className="w-full lg:w-1/3 pr-8 text-right relative mb-4 md:mb-0">
                 {/* Dot on timeline */}
-                <div className="absolute top-2 left-full transform -translate-x-1/2 w-8 h-8 border-4 border-red-400 bg-white rounded-full z-10"></div>
+                <div className="hidden lg:block  absolute top-1/2 left-full transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 border-4 border-red-400 bg-white hover:bg-black rounded-full z-10"></div>
 
                 <h3 className="text-lg font-semibold">{exp.duration}</h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600  dark:text-light_text">
                   {exp.title}, {exp.company}
                 </p>
               </div>
 
               {/* Right Side */}
-              <div className="w-full md:w-2/3 pl-12 bg-white pt-4 pb-4">
-                <p className="font-medium text-gray-700">
+              <div className="w-full md:w-2/3 pl-12 pt-4 pb-4">
+                <p className="font-medium p-4 bg-secondary text-light_text rounded-lg hover:bg-black">
                   {exp["details-experience"]}
                 </p>
               </div>
@@ -154,7 +176,7 @@ function About() {
           ))}
         </div>
       </section>
-      <section className="py-16 px-6 md:px-20 bg-gradient-to-br from-white to-primary rounded-3xl shadow-lg">
+      <section className="py-16 px-6 md:px-20 rounded-3xl shadow-lg">
         {/* Hobby Title */}
         <h2 className="text-4xl font-semibold text-gray-800 mb-6">Hobby</h2>
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, Link } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
@@ -21,24 +21,24 @@ const Navbar = () => {
       }`}
     >
       {/* Logo */}
-      <a
-        href="#home"
-        className="text-4xl font-semibold bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent opacity-90 transition-all duration-300"
+      <Link
+        to="/"
+        className="text-4xl font-semibold bg-primary bg-clip-text text-transparent opacity-90 transition-all duration-300  dark:text-light_text"
       >
-        SHANIKA E.
-      </a>
+        Shanika E<strong className="text-5xl">.</strong>
+      </Link>
 
       {/* Hamburger / Close Icon */}
       <div className="block lg:hidden z-50">
         <button
           onClick={toggleMenu}
-          className="text-primary dark:text-white  focus:outline-none"
+          className="text-primary dark:text-white  focus:outline-none "
         >
           {isMenuOpen ? (
             // X icon
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
+              className="h-10 w-10"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -54,7 +54,7 @@ const Navbar = () => {
             // Hamburger icon
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
+              className="h-10 w-10"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -76,7 +76,7 @@ const Navbar = () => {
     lg:flex lg:space-x-6
     ${
       isMenuOpen
-        ? "fixed inset-0 bg-secondary dark:bg-black dark:text-light_text text-light_text flex flex-col justify-center items-center space-y-8 z-40 lg:hidden"
+        ? "fixed inset-0 bg-accent dark:bg-black dark:text-light_text text-light_text flex flex-col justify-center items-center space-y-8 z-40 lg:hidden"
         : "hidden lg:flex"
     }
     space-y-4 lg:space-y-0

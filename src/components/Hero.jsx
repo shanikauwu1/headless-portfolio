@@ -5,6 +5,8 @@ import BubbleCanvas from "./BubbleCanvas";
 import { FaUser } from "react-icons/fa";
 import scollImage from "../assets/arrow-down.png";
 import { Link } from "react-router-dom";
+import { Typewriter } from "react-simple-typewriter";
+import { motion } from "framer-motion";
 
 function Hero() {
   // Fetch data including embedded features like images and ACF fields
@@ -39,9 +41,28 @@ function Hero() {
     };
   }, [restPath]);
 
-  // Extract featured image from the embedded data (if available)
-  const featuredImage =
-    restData?._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
+  const name = restData?.acf?.name || "Name Not Available";
+
+  const waveVariants = {
+    animate: {
+      transition: {
+        staggerChildren: 0.1,
+        repeat: Infinity,
+        repeatType: "loop",
+      },
+    },
+  };
+
+  const letterVariants = {
+    initial: { y: 0 },
+    animate: {
+      y: [0, -10, 0],
+      transition: {
+        duration: 1,
+        ease: "easeInOut",
+      },
+    },
+  };
 
   return (
     <>
@@ -53,61 +74,78 @@ function Hero() {
 
           <section className="relative min-h-fit lg:h-[90vh] flex flex-col lg:flex-row items-center justify-center text-dark text-center px-4 mb-8">
             <BubbleCanvas />
-            {featuredImage && (
-              <div className="absolute inset-0 flex justify-center items-center">
-                <img
-                  src={featuredImage}
-                  alt="Featured"
-                  className="w-[200px] h-auto object-contain opacity-50"
-                />
-              </div>
-            )}
 
-            {/* Content */}
+            {/*         
             <div className="flex-1 max-w-3xl text-lg md:text-xl p-4 z-10">
-              {/* Render the content of the page */}
-              <div
-                className="content"
-                dangerouslySetInnerHTML={{
-                  __html: restData?.content?.rendered || "No content available",
+            
+
+              <motion.div
+                animate={{ y: [0, -10, 0] }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
                 }}
-              />
-            </div>
+                className=" object-cover rounded-full opacity-80 "
+              >
+                <div
+                  className="content"
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      restData?.content?.rendered || "No content available",
+                  }}
+                />
+              </motion.div>
+            </div> */}
 
             {/* ACF Data (e.g., name, title, short about) */}
             <div className="flex-1 max-w-3xl text-lg md:text-xl p-4 z-10">
-              {/* ACF Name */}
-              <h1 className="text-2xl md:text-3xl font-bold text-dark mb-2 font-mono dark:text-light_text">
+              <h2 className="text-2xl md:text-3xl font-bold text-dark mb-2  dark:text-light_text">
                 {restData?.acf?.greeting || "Hi There!"}
-              </h1>
-              <h2 className=" text-4xl md:text-6xl  text-primary mb-3 font-medium">
-                {restData?.acf?.name || "Name Not Available"}
               </h2>
 
-              {/* ACF Title */}
-              <h3
-                className="text-3xl font-bold
-                md:text-4xl text-dark mb-3 md:font-medium font-mono dark:text-light_text"
+              <motion.h2
+                className="text-4xl md:text-6xl text-secondary mb-6 mt-6 font-medium dark:text-accent"
+                initial={{ opacity: 0, scale: 0.8, letterSpacing: "-0.1em" }}
+                animate={{ opacity: 1, scale: 1, letterSpacing: "0em" }}
+                transition={{ duration: 1.2, ease: "easeOut" }}
               >
-                {restData?.acf?.title || "Title Not Available"}
+                {restData?.acf?.name || "Name Not Available"}
+              </motion.h2>
+
+              {/* ACF Title */}
+              <h3 className="text-3xl font-bold md:text-5xl text-dark mb-3 md:font-medium dark:text-light_text">
+                <Typewriter
+                  words={
+                    restData?.acf?.title
+                      ? restData.acf.title.split(",") // in case it's a comma-separated string
+                      : ["Title Not Available"]
+                  }
+                  loop={true}
+                  cursor
+                  cursorStyle="|"
+                  typeSpeed={70}
+                  deleteSpeed={50}
+                  delaySpeed={1500}
+                />
               </h3>
 
               {/* ACF About */}
-              <p className="text-lg font-normal  md:text-xl font-sans md:font-semibold  text-dark dark:text-light_text">
+              <p className="text-lg font-normal  md:text-xl font-sans md:font-light  text-dark dark:text-light_text">
                 {restData?.acf?.about_me_short ||
                   "About me description is not available."}
               </p>
 
               <div className="flex flex-col md:flex-row   md:justify-center items-center gap-6 mt-8">
                 <Link to="/projects">
-                  <button className="px-6 py-3 text-white font-semibold  dark:border-white rounded-md bg-gradient-to-r from-[#256525] to-[#e08081] hover:opacity-90 transition duration-300">
+                  <button className="px-6 py-3 text-white font-semibold  dark:border-white rounded-md border-2 border-secondary bg-secondary hover:bg-transparent hover:text-secondary transition duration-300">
                     Discover My Projects
                   </button>
                 </Link>
 
                 <Link to="/about">
                   {" "}
-                  <button className="flex items-center gap-2 px-6 py-3 font-semibold text-[#256525] border-2 border-[#256525] dark:border-white dark:text-light_text rounded-md hover:text-white hover:bg-gradient-to-r hover:from-[#256525] hover:to-[#e08081] transition duration-300">
+                  <button className="flex items-center gap-2 px-6 py-3 font-semibold text-[#256525] border-2 border-[#256525] dark:border-white dark:text-light_text rounded-md hover:text-white hover:bg-gradient-to-r hover:bg-secondary transition duration-300">
                     <FaUser />
                     Who am I?
                   </button>
@@ -118,11 +156,21 @@ function Hero() {
                 href="#projects"
                 className="block mx-auto w-[70px] h-[70px] mt-8 cursor-pointer transition-transform duration-300 hover:scale-110"
               >
-                <img
-                  src={scollImage}
-                  alt="Scroll to projects"
-                  className="w-full h-full object-contain"
-                />
+                <motion.div
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className=" object-cover rounded-full opacity-80 "
+                >
+                  <img
+                    src={scollImage}
+                    alt="Scroll to projects"
+                    className="w-full h-full object-contain"
+                  />
+                </motion.div>
               </a>
             </div>
           </section>

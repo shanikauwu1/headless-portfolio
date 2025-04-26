@@ -88,7 +88,16 @@ const Navbar = () => {
             to="/"
             onClick={() => isMenuOpen && toggleMenu()}
             className={({ isActive }) =>
-              isActive ? "text-primary  dark:text-primary" : "hover:underline"
+              `relative inline-block  transition-all duration-300 
+       ${
+         isActive
+           ? "text-primary dark:text-primary"
+           : "text-dark dark:text-light_text"
+       }
+       before:content-[''] before:absolute before:bottom-0 before:right-0
+       before:w-0 before:h-[2px] before:bg-current
+       before:transition-all before:duration-300
+       hover:before:w-full hover:before:left-0 hover:before:right-auto`
             }
             end
           >
@@ -100,8 +109,18 @@ const Navbar = () => {
             to="/about"
             onClick={() => isMenuOpen && toggleMenu()}
             className={({ isActive }) =>
-              isActive ? "text-primary dark:text-primary" : "hover:underline"
+              `relative inline-block  transition-all duration-300 
+       ${
+         isActive
+           ? "text-primary dark:text-primary"
+           : "text-dark dark:text-light_text"
+       }
+       before:content-[''] before:absolute before:bottom-0 before:right-0
+       before:w-0 before:h-[2px] before:bg-current
+       before:transition-all before:duration-300
+       hover:before:w-full hover:before:left-0 hover:before:right-auto`
             }
+            end
           >
             About
           </NavLink>
@@ -111,8 +130,18 @@ const Navbar = () => {
             to="/projects"
             onClick={() => isMenuOpen && toggleMenu()}
             className={({ isActive }) =>
-              isActive ? "text-primary  dark:text-primary" : "hover:underline"
+              `relative inline-block  transition-all duration-300 
+       ${
+         isActive
+           ? "text-primary dark:text-primary"
+           : "text-dark dark:text-light_text"
+       }
+       before:content-[''] before:absolute before:bottom-0 before:right-0
+       before:w-0 before:h-[2px] before:bg-current
+       before:transition-all before:duration-300
+       hover:before:w-full hover:before:left-0 hover:before:right-auto`
             }
+            end
           >
             Projects
           </NavLink>
@@ -122,8 +151,18 @@ const Navbar = () => {
             to="/contact"
             onClick={() => isMenuOpen && toggleMenu()}
             className={({ isActive }) =>
-              isActive ? "text-primary   dark:text-primary" : "hover:underline"
+              `relative inline-block  transition-all duration-300 
+       ${
+         isActive
+           ? "text-primary dark:text-primary"
+           : "text-dark dark:text-light_text"
+       }
+       before:content-[''] before:absolute before:bottom-0 before:right-0
+       before:w-0 before:h-[2px] before:bg-current
+       before:transition-all before:duration-300
+       hover:before:w-full hover:before:left-0 hover:before:right-auto`
             }
+            end
           >
             Contact
           </NavLink>

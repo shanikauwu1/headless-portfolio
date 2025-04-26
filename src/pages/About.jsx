@@ -52,7 +52,7 @@ function About() {
 
   return (
     <div className="page-about mt-12 mb-12">
-      <section className=" py-16 px-6 md:px-20 bg-light rounded-3xl">
+      <section className=" py-16 px-6 md:px-20 rounded-3xl">
         <title>{`Shanika Ekanayake | ${
           restData?.title?.rendered || "About"
         }`}</title>
@@ -60,15 +60,17 @@ function About() {
         <div className="flex flex-col-reverse md:flex-row items-center md:items-start gap-12 md:gap-20">
           {/* Text Section */}
           <div className="flex-1">
-            <h2 className="text-5xl font-bold mb-8 text-gray-800">Who I Am</h2>
-            <p className="text-gray-700 text-lg leading-relaxed text-center md:text-left">
+            <h2 className="text-5xl font-bold mb-8 text-gray-800 dark:text-light_text">
+              Who I Am
+            </h2>
+            <p className="text-gray-700 text-lg leading-relaxed text-center md:text-left dark:text-light_text">
               {restData?.acf?.brief_about_me}
             </p>
           </div>
 
           {/* Image & Name Section */}
           <div className="flex-1 flex flex-col items-center justify-center text-center">
-            <h1 className="text-4xl font-extrabold mb-6 text-gray-900">
+            <h1 className="text-4xl font-extrabold mb-6 text-gray-900 dark:text-accent">
               {restData?.acf?.name}
             </h1>
             {profileImageUrl && (
@@ -82,19 +84,19 @@ function About() {
             <div className="flex justify-center items-center space-x-6  mt-8">
               {/* LinkedIn Icon */}
               <a
-                href="https://www.linkedin.com"
+                href="https://www.linkedin.com/in/shanikajayawardane/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-2xl text-accent hover:text-primary"
+                className="text-2xl text-accent hover:text-light_text"
               >
                 <FaLinkedin size={60} />
               </a>
 
               <a
-                href="https://github.com"
+                href="https://github.com/shanikauwu1"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-2xl text-accent hover:text-primary"
+                className="text-2xl text-accent hover:text-light_text"
               >
                 <FaGithub size={60} />
               </a>
@@ -123,21 +125,20 @@ function About() {
       </section>
 
       {/* {skill section} */}
-      <section className="mt-8 mb-8 p-8 md:p-12 rounded-3xl bg-light shadow-xl transition-all duration-300">
+      <section className="mt-8 mb-8 p-8 md:p-12  dark:bg-transparent rounded-3xl shadow-xl transition-all duration-300">
         <Skills />
       </section>
       {/* Education */}
-      <section
-        id="education"
-        className="px-6 py-16 md:px-20 bg-light rounded-3xl"
-      >
-        <h2 className="text-4xl font-semibold mb-6">My Education</h2>
+      <section id="education" className="px-6 py-16 md:px-20 ">
+        <h2 className="text-4xl font-semibold mb-6 dark:text-light_text">
+          My Education
+        </h2>
         {restData.acf?.my_eductaion?.length > 0 && (
           <div className="space-y-4">
             {restData.acf.my_eductaion.map((edu, index) => (
               <div key={index}>
-                <p className="font-semibold">{edu.degree}</p>
-                <p className="text-sm text-gray-600">
+                <p className="font-semibold dark:text-accent">{edu.degree}</p>
+                <p className="text-sm text-gray-600 dark:text-light_text">
                   {edu.institution} • {edu.year}
                 </p>
               </div>
@@ -146,8 +147,10 @@ function About() {
         )}
       </section>
 
-      <section className="mt-8 mb-8 p-8 md:p-12 rounded-3xl bg-light shadow-xl transition-all duration-300">
-        <h2 className="text-4xl font-semibold mb-8">My Experience</h2>
+      <section className="mt-8 mb-8 p-8 md:p-12 rounded-3xl shadow-xl transition-all duration-300">
+        <h2 className="text-4xl font-semibold mb-8 dark:text-light_text">
+          My Experience
+        </h2>
 
         <div className="w-full max-w-4xl px-8 py-16 relative rounded-lg bg-white dark:bg-dark dark:text-light_text">
           {/* Vertical timeline line (full height) */}
@@ -168,7 +171,7 @@ function About() {
 
               {/* Right Side */}
               <div className="w-full md:w-2/3 pl-12 pt-4 pb-4">
-                <p className="font-medium p-4 bg-secondary text-light_text rounded-lg hover:bg-black">
+                <p className="font-medium p-4 bg-secondary dark:bg-accent dark:text-dark  text-light_text rounded-lg hover:bg-black dark:hover:bg-white dark:hover:text-dark">
                   {exp["details-experience"]}
                 </p>
               </div>
@@ -178,12 +181,14 @@ function About() {
       </section>
       <section className="py-16 px-6 md:px-20 rounded-3xl shadow-lg">
         {/* Hobby Title */}
-        <h2 className="text-4xl font-semibold text-gray-800 mb-6">Hobby</h2>
+        <h2 className="text-4xl font-semibold text-gray-800 mb-6 dark:text-light_text">
+          Hobby
+        </h2>
 
         {/* Hobby Description */}
         {restData.acf?.hobby && (
           <div className="mb-10">
-            <p className="text-xl font-semibold leading-relaxed text-gray-700">
+            <p className="text-xl font-semibold leading-relaxed text-gray-700 dark:text-accent">
               {restData.acf.hobby}
             </p>
           </div>

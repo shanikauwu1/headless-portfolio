@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { FaLink, FaGithub } from "react-icons/fa";
 function Project({ project }) {
   const { title, acf, id, _embedded } = project;
 
@@ -11,7 +12,7 @@ function Project({ project }) {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300">
+    <div className="bg-light dark:bg-black rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 p-8 ">
       {/* Featured Image */}
       {featuredImage && (
         <img
@@ -22,13 +23,13 @@ function Project({ project }) {
       )}
 
       {/* Project Content */}
-      <div className="p-4 space-y-2">
+      <div className="p-4 space-y-2 flex flex-col gap-2 justify-center items-center">
         {/* Title */}
-        <h3 className="text-xl font-bold text-gray-800">{title.rendered}</h3>
+        <h3 className="text-xl font-bold  text-secondary">{title.rendered}</h3>
 
         {/* Truncated Description */}
         {acf?.description && (
-          <p className="text-gray-600 text-sm">
+          <p className=" text-dark text-sm">
             {truncateText(acf.description, 50)}
           </p>
         )}
@@ -41,9 +42,9 @@ function Project({ project }) {
               href={acf.github_link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-blue-600 hover:underline"
+              className="text-sm text-accent hover:text-light_text"
             >
-              GitHub
+              <FaGithub size={30} />
             </a>
           )}
 
@@ -53,9 +54,9 @@ function Project({ project }) {
               href={acf.live_site.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-green-600 hover:underline"
+              className="text-sm text-green-600 hover:text-light_text"
             >
-              Live Site
+              <FaLink size={30} />
             </a>
           )}
         </div>
@@ -64,7 +65,7 @@ function Project({ project }) {
         <div className="mt-4">
           <Link
             to={`/project/${id}`}
-            className="inline-block px-4 py-2 bg-gray-800 text-white rounded-lg text-sm hover:bg-gray-700"
+            className="inline-block px-4 py-2 bg-gradient-to-r from-[#256525] to-[#e08081] text-white rounded-lg text-sm hover:bg-primary"
           >
             View More
           </Link>

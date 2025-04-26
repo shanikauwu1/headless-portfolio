@@ -61,6 +61,6 @@ const appStyle = {
   alignItems: "center",
   flexDirection: "column",
   height: "100vh",
-  backgroundColor: "#f08181",
+  backgroundColor: "#eeeeee",
 };
 export default App;

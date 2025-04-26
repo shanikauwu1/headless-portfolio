@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { restBase } from "../utilities/Utilities";
 import Loading from "./Loading";
 import ProjectCard from "../components/Project";
+import { motion } from "framer-motion";
 
 function FeatureProjects() {
   const [projects, setProjects] = useState([]);
@@ -34,13 +35,19 @@ function FeatureProjects() {
   return (
     <section
       id="projects"
-      className="p-4 lg:p-8 lg:w-2/3 mx-auto bg-primary rounded-2xl "
+      className="p-4 lg:p-8 lg:w-2/3 mx-auto bg-gradient-to-r from-secondary to-green-900 rounded-2xl "
     >
-      <div className="grid md:grid-cols-2 gap-12">
-        {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
-      </div>
+      <motion.div
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ type: "spring", stiffness: 100, damping: 15 }}
+      >
+        <div className="grid md:grid-cols-2 gap-12">
+          {projects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </div>
+      </motion.div>
     </section>
   );
 }

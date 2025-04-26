@@ -5,12 +5,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#f08080",
+        primary: "#cd2028",
         light_text: "#edf6f9",
-        secondary: "#b0c4b1", // lightgrren
-        accent: "#9d8189",
+        secondary: "#18532c", // dark tgrren
+        accent: "#f08181",
         dark: "#14213d", // Dark gray color
-        light: "ffe5d9", // Light gray color
+        light: "#EEEEEE", // Light gray color
+        light_mode_bg: "#ffff",
       },
       animation: {
         float: "float 3s ease-in-out infinite",
@@ -20,6 +21,9 @@ export default {
           "0%, 100%": { transform: "translateY(0px)" },
           "50%": { transform: "translateY(-10px)" },
         },
+      },
+      fontFamily: {
+        jetbrains: ['"JetBrains Mono"', "monospace"],
       },
     },
   },

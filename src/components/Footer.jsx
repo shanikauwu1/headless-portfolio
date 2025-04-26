@@ -2,7 +2,7 @@ import { FaLinkedin, FaGithub } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-primary text-white py-4">
+    <footer className="bg-secondary dark:bg-accent text-white py-4">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-center items-center space-x-6">
           {/* LinkedIn Icon */}
@@ -10,7 +10,7 @@ const Footer = () => {
             href="https://www.linkedin.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-2xl hover:text-primary"
+            className="text-2xl hover:text-dark"
           >
             <FaLinkedin size={40} />
           </a>
@@ -19,7 +19,7 @@ const Footer = () => {
             href="https://github.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-2xl hover:text-primary"
+            className="text-2xl hover:text-dark"
           >
             <FaGithub size={40} />
           </a>

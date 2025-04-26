@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { restBase } from "../utilities/Utilities";
 import Loading from "../utilities/Loading";
+import { FaLink, FaGithub } from "react-icons/fa";
 
 const SingleProject = () => {
   const { id } = useParams();
   const [project, setProject] = useState(null);
+  const [skills, setSkills] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -13,11 +15,22 @@ const SingleProject = () => {
       try {
         const res = await fetch(`${restBase}pfh-project/${id}?_embed`);
         const data = await res.json();
-        console.log(data);
         setProject(data);
         setIsLoaded(true);
+
+        // After project is fetched, get the skill IDs
+        if (data.acf?.project_skills?.length > 0) {
+          // Fetch each skill by ID
+          const skillRequests = data.acf.project_skills.map((skillId) =>
+            fetch(`${restBase}pfh-skill/${skillId}?_embed`).then((res) =>
+              res.json()
+            )
+          );
+          const skillData = await Promise.all(skillRequests);
+          setSkills(skillData);
+        }
       } catch (error) {
-        console.error("Error fetching project:", error);
+        console.error("Error fetching project or skills:", error);
         setIsLoaded(false);
       }
     };
@@ -32,63 +45,99 @@ const SingleProject = () => {
     project._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
 
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">{project.title.rendered}</h2>
+    <section className="p-4 dark:text-light_text">
+      <h2 className="text-5xl font-bold mb-8 text-gray-800 dark:text-light_text">
+        {project.title.rendered}
+      </h2>
 
-      {featuredImage && (
-        <img
-          src={featuredImage}
-          alt={project.title.rendered}
-          className="w-full max-w-2xl mb-4 rounded"
-        />
-      )}
+      <div className="flex flex-col lg:flex-row gap-12">
+        <aside className="w-full lg:w-1/2 lg:pr-4">
+          {featuredImage && (
+            <img
+              src={featuredImage}
+              alt={project.title.rendered}
+              className="w-full max-w-2xl mb-4 rounded"
+            />
+          )}
+        </aside>
 
-      {project.acf?.description && (
-        <p className="mb-2">
-          <strong>Description:</strong> {project.acf.description}
-        </p>
-      )}
+        <article className="w-full lg:w-1/2 lg:pl-4">
+          {project.acf?.description && (
+            <div className="mb-2">
+              <h2 className="text-3xl mb-4 font-semibold">Project Overview</h2>
+              <p> {project.acf.description}</p>
+            </div>
+          )}
 
-      {project.acf?.development && (
-        <p className="mb-2">
-          <strong>Development:</strong> {project.acf.development}
-        </p>
-      )}
+          <div className="flex flex-row  gap-8 mt-8">
+            {project.acf?.live_site?.url && (
+              <a
+                href={project.acf.live_site.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary  hover:text-secondary transition"
+              >
+                <FaLink size={40} />
+              </a>
+            )}
 
-      {project.acf?.reflection && (
-        <p className="mb-2">
-          <strong>Reflection:</strong> {project.acf.reflection}
-        </p>
-      )}
+            {project.acf?.github_link?.url && (
+              <a
+                href={project.acf.github_link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary  hover:text-secondary transition"
+              >
+                <FaGithub size={40} />
+              </a>
+            )}
+          </div>
+        </article>
+      </div>
+      <div>
+        <h2 className="text-3xl mb-4 font-semibold mt-4">Technologies</h2>
+        {skills.length > 0 && (
+          <div className="mt-8">
+            <ul className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-6">
+              {skills.map((skill) => {
+                const featuredImage =
+                  skill._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
 
-      {project.acf?.live_site?.url && (
-        <p className="mb-2">
-          <strong>Live Site:</strong>{" "}
-          <a
-            href={project.acf.live_site.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-600 underline"
-          >
-            {project.acf.live_site.url}
-          </a>
-        </p>
-      )}
-
-      {project.acf?.github_link?.url && (
-        <p className="mb-2">
-          <strong>GitHub:</strong>{" "}
-          <a
-            href={project.acf.github_link.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-600 underline"
-          >
-            {project.acf.github_link.url}
-          </a>
-        </p>
-      )}
-    </div>
+                return (
+                  <li
+                    key={skill.id}
+                    className="flex flex-col items-center bg-gray-100 dark:bg-dark_secondary p-4 rounded-lg shadow dark: text-dark"
+                  >
+                    {featuredImage && (
+                      <img
+                        src={featuredImage}
+                        alt={skill.title.rendered}
+                        className="w-16 h-16 object-contain mb-2"
+                      />
+                    )}
+                    <p className="text-sm font-medium text-center">
+                      {skill.title.rendered}
+                    </p>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
+      </div>
+      <div>
+        <h2 className="text-3xl mb-4 font-semibold mt-4">Technologies</h2>
+        {project.acf?.development && (
+          <p className="mb-2">{project.acf.development}</p>
+        )}
+      </div>
+      <div>
+        <h2 className="text-3xl mb-4 font-semibold mt-4">Reflection:</h2>
+        {project.acf?.reflection && (
+          <p className="mb-2">{project.acf.reflection}</p>
+        )}
+      </div>
+    </section>
   );
 };
 

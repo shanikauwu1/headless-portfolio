@@ -32,8 +32,8 @@ const SVGLogo = () => (
       {/* Define Gradient */}
       <defs>
         <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="black" />
-          <stop offset="100%" stopColor="green" />
+          <stop offset="0%" stopColor="#cd2028" />
+          <stop offset="100%" stopColor="#f08181" />
         </linearGradient>
       </defs>
 

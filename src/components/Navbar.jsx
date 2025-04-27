@@ -23,9 +23,13 @@ const Navbar = () => {
       {/* Logo */}
       <Link
         to="/"
-        className="text-4xl font-semibold bg-primary bg-clip-text text-transparent opacity-90 transition-all duration-300  dark:text-light_text"
+        className="text-5xl font-extrabold tracking-tight transition-all duration-500 ease-in-out
+             text-secondary dark:text-light_text hover:scale-110"
       >
-        Shanika E<strong className="text-5xl">.</strong>
+        <span className="relative">
+          <span className="text-primary">S</span>
+          <span className="absolute left-4 top-0 text-accent">E</span>
+        </span>
       </Link>
 
       {/* Hamburger / Close Icon */}

@@ -130,7 +130,7 @@ function About() {
       </section>
       {/* Education */}
       <section id="education" className="px-6 py-16 md:px-20 ">
-        <h2 className="text-4xl font-semibold mb-6 dark:text-light_text">
+        <h2 className="text-3xl md:text-4xl font-semibold mb-6 dark:text-light_text">
           My Education
         </h2>
         {restData.acf?.my_eductaion?.length > 0 && (
@@ -146,42 +146,57 @@ function About() {
           </div>
         )}
       </section>
-
+      {/*   My Experience */}
       <section className="mt-8 mb-8 p-8 md:p-12 rounded-3xl shadow-xl transition-all duration-300">
-        <h2 className="text-4xl font-semibold mb-8 dark:text-light_text">
+        <h2 className="text-3xl md:text-4xl font-semibold mb-8 dark:text-light_text">
           My Experience
         </h2>
 
-        <div className="w-full max-w-4xl px-8 py-16 relative rounded-lg bg-white dark:bg-dark dark:text-light_text">
+        <div className="w-full md:max-w-4xl px-8 py-16 relative rounded-lg bg-white dark:bg-dark dark:text-light_text">
           {/* Vertical timeline line (full height) */}
-          <div className="hidden lg:block  absolute top-0 bottom-0 left-[307px] w-1 bg-pink-400 z-0"></div>
+          <div className="hidden lg:block absolute top-0 bottom-0 left-[307px] w-1 bg-pink-400 z-0"></div>
 
           {restData.acf.experience.map((exp, index) => (
-            <div key={index} className="relative mb-12 flex flex-wrap">
+            <div
+              key={index}
+              className="relative mb-12 flex flex-col md:flex-row"
+            >
               {/* Left Side */}
-              <div className="w-full lg:w-1/3 pr-8 text-right relative mb-4 md:mb-0">
+              <div className="w-full md:w-1/3 pr-8 text-right relative mb-4 md:mb-0">
                 {/* Dot on timeline */}
-                <div className="hidden lg:block  absolute top-1/2 left-full transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 border-4 border-red-400 bg-white hover:bg-black rounded-full z-10"></div>
+                <div className="hidden lg:block absolute top-1/2 left-full transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 border-4 border-red-400 bg-white hover:bg-black rounded-full z-10"></div>
 
-                <h3 className="text-lg font-semibold">{exp.duration}</h3>
-                <p className="text-sm text-gray-600  dark:text-light_text">
-                  {exp.title}, {exp.company}
+                <h3 className=" text-left text-lg font-semibold">
+                  {exp.duration}
+                </h3>
+                <p className="text-sm text-gray-600 text-left  dark:text-light_text">
+                  <strong>{exp.title}</strong>
+                  <br /> {exp.company}
                 </p>
               </div>
 
               {/* Right Side */}
-              <div className="w-full md:w-2/3 pl-12 pt-4 pb-4">
-                <p className="font-medium p-4 bg-secondary dark:bg-accent dark:text-dark  text-light_text rounded-lg hover:bg-black dark:hover:bg-white dark:hover:text-dark">
-                  {exp["details-experience"]}
-                </p>
+              <div className="w-full md:w-2/3 pl-0 md:pl-12 pt-4 pb-4">
+                <ul className="font-medium p-4 bg-light dark:bg-accent dark:text-dark text-dark rounded-lg hover:bg-accent dark:hover:bg-white dark:hover:text-dark">
+                  {exp["details-experience"]
+                    .split(".")
+                    .filter((item) => item.trim() !== "") // Remove any empty strings caused by trailing full stops
+                    .map((item, idx) => (
+                      <li key={idx} className="mb-2 flex flex-row gap-4">
+                        <div className="text-xl text-primary"> + </div>{" "}
+                        {item.trim()}
+                      </li>
+                    ))}
+                </ul>
               </div>
             </div>
           ))}
         </div>
       </section>
+      {/* Hobby  */}
       <section className="py-16 px-6 md:px-20 rounded-3xl shadow-lg">
         {/* Hobby Title */}
-        <h2 className="text-4xl font-semibold text-gray-800 mb-6 dark:text-light_text">
+        <h2 className="text-3xl md:text-4xl font-semibold text-gray-800 mb-6 dark:text-light_text">
           Hobby
         </h2>
 

@@ -21,8 +21,8 @@ const BubbleCanvas = () => {
     };
 
     const bubble = {
-      x: width / 2,
-      y: height / 2,
+      x: width / 4,
+      y: height / 4,
       radius: getResponsiveRadius(),
       vx: 1.1,
       vy: 0.6,

@@ -12,7 +12,7 @@ function Project({ project }) {
   };
 
   return (
-    <div className="bg-light dark:bg-black rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 p-8 ">
+    <div className="bg-light  rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 p-8 ">
       {/* Featured Image */}
       {featuredImage && (
         <img

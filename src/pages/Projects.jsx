@@ -7,13 +7,33 @@ import { motion } from "framer-motion";
 function Projects() {
   const [projects, setProjects] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [activeCategory, setActiveCategory] = useState("all");
 
+  // Fetch categories
   useEffect(() => {
-    const restPath = restBase + `pfh-project?_embed`;
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch(`${restBase}project-category`);
+        const data = await res.json();
+        setCategories(data);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategories(); // Fetch categories on component mount
+  }, []);
+
+  // Fetch projects based on the active category
+  useEffect(() => {
+    const restPath = `${restBase}pfh-project?_embed`;
+    const categoryParam =
+      activeCategory !== "all" ? `&project-category=${activeCategory}` : ""; // If not 'all', add category filter
 
     const fetchProjects = async () => {
       try {
-        const res = await fetch(restPath);
+        const res = await fetch(`${restPath}${categoryParam}`);
         const data = await res.json();
         console.log(data);
         setProjects(data);
@@ -23,25 +43,55 @@ function Projects() {
         setIsLoaded(false);
       }
     };
-    fetchProjects();
-  }, []);
+
+    fetchProjects(); // Fetch projects when activeCategory changes
+  }, [activeCategory]); // This effect will run every time the activeCategory changes
 
   return (
-    <section className="p-4 mb-12 ">
-      <h2 className="text-4xl mb-12 font-semibold dark:text-light_text">
+    <section className="p-4 mb-12">
+      <h2 className="text-4xl mb-8 font-semibold dark:text-light_text">
         My Projects
       </h2>
+
+      {/* Filter buttons */}
+      <div className="flex flex-wrap gap-2 mb-8">
+        <button
+          onClick={() => setActiveCategory("all")}
+          className={`px-4 py-2 rounded ${
+            activeCategory === "all"
+              ? "bg-dark text-white dark:bg-accent"
+              : "bg-gray-200"
+          }`}
+        >
+          All
+        </button>
+        {categories.map((cat) => (
+          <button
+            key={cat.id}
+            onClick={() => setActiveCategory(cat.id)}
+            className={`px-4 py-2 rounded ${
+              activeCategory === cat.id
+                ? "bg-dark text-white dark:bg-accent"
+                : "bg-gray-200"
+            }`}
+          >
+            {cat.name}
+          </button>
+        ))}
+      </div>
+
       {isLoaded ? (
-        <div className="grid gap-6 grid-cols-1 md:grid-cols-2 ">
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
           {projects.map((project) => (
             <motion.div
+              key={project.id}
               initial={{ y: -50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ type: "spring", stiffness: 100, damping: 15 }}
               whileHover={{ scale: 1.05 }}
             >
               <div className="p-4 bg-secondary dark:bg-accent rounded-xl">
-                <ProjectCard key={project.id} project={project} />
+                <ProjectCard project={project} />
               </div>
             </motion.div>
           ))}

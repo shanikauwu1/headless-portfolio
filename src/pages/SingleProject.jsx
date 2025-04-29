@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { restBase } from "../utilities/Utilities";
 import Loading from "../utilities/Loading";
-import { FaLink, FaGithub, FaLightbulb, FaTools } from "react-icons/fa";
+import { FaLink, FaGithub, FaLightbulb, FaRocket } from "react-icons/fa";
 
 const SingleProject = () => {
   const { id } = useParams();
@@ -140,7 +140,7 @@ const SingleProject = () => {
               .filter((item) => item.trim() !== "")
               .map((item, idx) => (
                 <li key={idx} className="flex items-start gap-2">
-                  <FaTools className="text-dark dark:text-accent mt-1 mr-4 flex-shrink-0" />
+                  <FaRocket className="text-accent mt-1 mr-4 flex-shrink-0" />
                   <span>{item.trim()}</span>
                 </li>
               ))}

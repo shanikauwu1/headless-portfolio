@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { restBase } from "../utilities/Utilities";
 import Loading from "../utilities/Loading";
-import { FaLink, FaGithub } from "react-icons/fa";
+import { FaLink, FaGithub, FaLightbulb, FaTools } from "react-icons/fa";
 
 const SingleProject = () => {
   const { id } = useParams();
@@ -46,7 +46,7 @@ const SingleProject = () => {
 
   return (
     <section className="p-4 dark:text-light_text">
-      <h2 className="text-5xl font-bold mb-8 text-gray-800 dark:text-light_text">
+      <h2 className="text-3xl md:text-5xl font-bold mb-16 text-gray-800 dark:text-light_text">
         {project.title.rendered}
       </h2>
 
@@ -56,7 +56,7 @@ const SingleProject = () => {
             <img
               src={featuredImage}
               alt={project.title.rendered}
-              className="w-full max-w-2xl mb-4 rounded"
+              className="w-full max-w-2xl mb-8 rounded"
             />
           )}
         </aside>
@@ -64,7 +64,9 @@ const SingleProject = () => {
         <article className="w-full lg:w-1/2 lg:pl-4">
           {project.acf?.description && (
             <div className="mb-2">
-              <h2 className="text-3xl mb-4 font-semibold">Project Overview</h2>
+              <h2 className="text-2xl md:text-3xl mb-8 font-semibold">
+                Project Overview
+              </h2>
               <p> {project.acf.description}</p>
             </div>
           )}
@@ -75,7 +77,7 @@ const SingleProject = () => {
                 href={project.acf.live_site.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary  hover:text-secondary transition"
+                className="text-accent  hover:text-secondary transition"
               >
                 <FaLink size={40} />
               </a>
@@ -86,7 +88,7 @@ const SingleProject = () => {
                 href={project.acf.github_link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary  hover:text-secondary transition"
+                className="text-accent  hover:text-secondary transition"
               >
                 <FaGithub size={40} />
               </a>
@@ -95,9 +97,11 @@ const SingleProject = () => {
         </article>
       </div>
       <div>
-        <h2 className="text-3xl mb-4 font-semibold mt-4">Technologies</h2>
+        <h2 className="text-2xl md:text-3xl mb-12 font-semibold mt-4">
+          Tools and Technologies
+        </h2>
         {skills.length > 0 && (
-          <div className="mt-8">
+          <div className="mt-8 mb-12">
             <ul className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-6">
               {skills.map((skill) => {
                 const featuredImage =
@@ -125,16 +129,41 @@ const SingleProject = () => {
           </div>
         )}
       </div>
-      <div>
-        <h2 className="text-3xl mb-4 font-semibold mt-4">Technologies</h2>
+      <div className="mb-12">
+        <h2 className="text-2xl md:text-3xl mb-8 font-semibold mt-4 flex items-center gap-2">
+          Project Features and Highlights
+        </h2>
         {project.acf?.development && (
-          <p className="mb-2">{project.acf.development}</p>
+          <ul className="list-none pl-0 space-y-2">
+            {project.acf.development
+              .split(".")
+              .filter((item) => item.trim() !== "")
+              .map((item, idx) => (
+                <li key={idx} className="flex items-start gap-2">
+                  <FaTools className="text-dark dark:text-accent mt-1 mr-4 flex-shrink-0" />
+                  <span>{item.trim()}</span>
+                </li>
+              ))}
+          </ul>
         )}
       </div>
-      <div>
-        <h2 className="text-3xl mb-4 font-semibold mt-4">Reflection:</h2>
+
+      <div className="mb-12">
+        <h2 className="text-2xl md:text-3xl mb-8 font-semibold mt-4 flex items-center gap-2">
+          My Learning Journey
+        </h2>
         {project.acf?.reflection && (
-          <p className="mb-2">{project.acf.reflection}</p>
+          <ul className="list-none pl-0 space-y-2">
+            {project.acf.reflection
+              .split(".")
+              .filter((item) => item.trim() !== "")
+              .map((item, idx) => (
+                <li key={idx} className="flex items-start gap-2">
+                  <FaLightbulb className="text-accent flex-shrink-0 mt-1 mr-4" />
+                  <span>{item.trim()}</span>
+                </li>
+              ))}
+          </ul>
         )}
       </div>
     </section>

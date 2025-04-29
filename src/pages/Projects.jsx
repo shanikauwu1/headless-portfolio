@@ -32,7 +32,7 @@ function Projects() {
         My Projects
       </h2>
       {isLoaded ? (
-        <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-2 ">
           {projects.map((project) => (
             <motion.div
               initial={{ y: -50, opacity: 0 }}
@@ -40,7 +40,7 @@ function Projects() {
               transition={{ type: "spring", stiffness: 100, damping: 15 }}
               whileHover={{ scale: 1.05 }}
             >
-              <div className="p-4 bg-secondary rounded-xl">
+              <div className="p-4 bg-secondary dark:bg-accent rounded-xl">
                 <ProjectCard key={project.id} project={project} />
               </div>
             </motion.div>

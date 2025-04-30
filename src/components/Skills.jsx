@@ -12,8 +12,12 @@ function Skills() {
     const fetchSkillsAndCategories = async () => {
       try {
         // Fetch skills with embedded media
-        const skillsRes = await fetch(`${restBase}pfh-skill?_embed`);
+        const skillsRes = await fetch(
+          `${restBase}pfh-skill?_embed&per_page=20`
+        );
         const skillsData = await skillsRes.json();
+
+        console.log(skillsData);
 
         // Fetch categories
         const catRes = await fetch(`${restBase}skill-category`);

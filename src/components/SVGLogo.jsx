@@ -1,35 +1,35 @@
 const SVGLogo = () => (
   <>
     <style>{`
-        @keyframes draw {
-          to {
-            stroke-dashoffset: 0;
-          }
+      @keyframes draw {
+        to {
+          stroke-dashoffset: 0;
         }
-      `}</style>
+      }
+    `}</style>
 
     <svg
       width="200"
       height="200"
-      viewBox="0 0 200 200"
+      viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
     >
-      {/* Animated Circle */}
+      {/* Animated Circle centered */}
       <circle
-        cx="100"
-        cy="100"
-        r="50"
+        cx="52"
+        cy="45"
+        r="25"
         stroke="url(#textGradient)"
-        strokeWidth="10"
+        strokeWidth="2"
         fill="none"
-        strokeDasharray="314" // Approx. circumference of a 50 radius circle
-        strokeDashoffset="314"
+        strokeDasharray="188.4"
+        strokeDashoffset="188.4"
         style={{
           animation: "draw 2s ease-in-out forwards",
         }}
       />
 
-      {/* Define Gradient */}
+      {/* Gradient Definition */}
       <defs>
         <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stopColor="#cd2028" />
@@ -37,19 +37,31 @@ const SVGLogo = () => (
         </linearGradient>
       </defs>
 
-      {/* Static Logo Text */}
+      {/* S and E Text centered */}
       <text
-        x="50%"
-        y="50%"
+        x="50"
+        y="53"
+        fontSize="24"
+        fontWeight="700"
         textAnchor="middle"
-        dominantBaseline="middle"
-        fontSize="48"
-        fill="url(#textGradient)"
+        fill="#cd2028"
         style={{ fontFamily: "Arial, sans-serif" }}
       >
-        SE
+        S
+      </text>
+      <text
+        x="58"
+        y="48"
+        fontSize="24"
+        fontWeight="700"
+        textAnchor="middle"
+        fill="#f08080"
+        style={{ fontFamily: "Arial, sans-serif" }}
+      >
+        E
       </text>
     </svg>
   </>
 );
+
 export default SVGLogo;

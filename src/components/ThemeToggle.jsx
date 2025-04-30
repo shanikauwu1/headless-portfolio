@@ -25,7 +25,7 @@ function ThemeToggle() {
       {theme === "light" ? (
         <FaMoon className="text-white" size={20} />
       ) : (
-        <FaSun className="text-yellow-500" size={20} />
+        <FaSun className="text-dark" size={20} />
       )}
     </button>
   );

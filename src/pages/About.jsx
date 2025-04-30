@@ -3,9 +3,10 @@ import { restBase } from "../utilities/Utilities";
 import Loading from "../utilities/Loading";
 import scollImage from "../assets/arrow-down.png";
 import Skills from "../components/Skills";
-import { FaLinkedin, FaGithub } from "react-icons/fa";
+import { FaLinkedin, FaGithub, FaCheckCircle } from "react-icons/fa";
 import bakeImg from "../assets/bakeAcake.gif";
 import { motion } from "framer-motion";
+import ScrollToTopDown from "../utilities/ScrollToTopDown";
 
 function About() {
   const restPath = restBase + "pages/63?_fields=acf,title";
@@ -66,6 +67,13 @@ function About() {
             <p className="text-gray-700 text-lg leading-relaxed text-center md:text-left dark:text-light_text">
               {restData?.acf?.brief_about_me}
             </p>
+
+            <a
+              href="#hobby"
+              className="inline-block px-6 py-3 bg-accent mt-12 text-white text-lg font-semibold rounded-full shadow-md hover:bg-dark transition duration-300"
+            >
+              🍰 See What I Love Doing!
+            </a>
           </div>
 
           {/* Image & Name Section */}
@@ -103,25 +111,6 @@ function About() {
             </div>
           </div>
         </div>
-        <motion.div
-          animate={{
-            y: [0, 20, 0],
-          }}
-          transition={{
-            duration: 1.5,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className=" bottom-8 right-8 z-50 text-3xl text-primary cursor-pointer"
-        >
-          <a href="#education">
-            <img
-              src={scollImage}
-              alt="Scrolling"
-              className="w-[80px] h-[80px]"
-            />
-          </a>
-        </motion.div>
       </section>
 
       {/* {skill section} */}
@@ -152,38 +141,40 @@ function About() {
           My Experience
         </h2>
 
-        <div className="w-full md:max-w-4xl px-8 py-16 relative rounded-lg bg-white dark:bg-dark dark:text-light_text">
+        <div className="p-2 w-full md:max-w-4xl lg:px-8 lg:py-16 relative rounded-lg bg-white dark:bg-dark dark:text-light_text">
           {/* Vertical timeline line (full height) */}
           <div className="hidden lg:block absolute top-0 bottom-0 left-[307px] w-1 bg-pink-400 z-0"></div>
 
           {restData.acf.experience.map((exp, index) => (
             <div
               key={index}
-              className="relative mb-12 flex flex-col md:flex-row"
+              className="group relative mb-12 flex flex-col md:flex-row z-10" // Ensure each item is above the line
             >
               {/* Left Side */}
-              <div className="w-full md:w-1/3 pr-8 text-right relative mb-4 md:mb-0">
+              <div className="w-full md:w-1/3 pr-8 text-right relative mb-4 md:mb-0 z-20">
                 {/* Dot on timeline */}
-                <div className="hidden lg:block absolute top-1/2 left-full transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 border-4 border-red-400 bg-white hover:bg-black rounded-full z-10"></div>
+                <div className="hidden lg:block absolute top-1/2 left-full transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 border-4 border-red-400 bg-white rounded-full transition-colors duration-300 group-hover:bg-black z-30"></div>
 
-                <h3 className=" text-left text-lg font-semibold">
+                <h3 className="text-left text-lg font-semibold">
                   {exp.duration}
                 </h3>
-                <p className="text-sm text-gray-600 text-left  dark:text-light_text">
+                <p className="text-sm text-gray-600 text-left dark:text-light_text">
                   <strong>{exp.title}</strong>
                   <br /> {exp.company}
                 </p>
               </div>
 
               {/* Right Side */}
-              <div className="w-full md:w-2/3 pl-0 md:pl-12 pt-4 pb-4">
-                <ul className="font-medium p-4 bg-light dark:bg-accent dark:text-dark text-dark rounded-lg hover:bg-accent dark:hover:bg-white dark:hover:text-dark">
+              <div className="w-full md:w-2/3 pl-0 md:pl-12 pt-4 pb-4 z-20">
+                <ul className="font-medium p-4 bg-light dark:bg-accent text-dark rounded-lg hover:bg-accent dark:hover:bg-light transition-colors duration-300">
                   {exp["details-experience"]
                     .split(".")
-                    .filter((item) => item.trim() !== "") // Remove any empty strings caused by trailing full stops
+                    .filter((item) => item.trim() !== "")
                     .map((item, idx) => (
                       <li key={idx} className="mb-2 flex flex-row gap-4">
-                        <div className="text-xl text-primary"> + </div>{" "}
+                        <div className="text-xl text-dark">
+                          <FaCheckCircle />
+                        </div>
                         {item.trim()}
                       </li>
                     ))}
@@ -194,7 +185,7 @@ function About() {
         </div>
       </section>
       {/* Hobby  */}
-      <section className="py-16 px-6 md:px-20 rounded-3xl shadow-lg">
+      <section id="hobby" className="py-16 px-6 md:px-20 rounded-3xl shadow-lg">
         {/* Hobby Title */}
         <h2 className="text-3xl md:text-4xl font-semibold text-gray-800 mb-6 dark:text-light_text">
           Hobby
@@ -218,6 +209,8 @@ function About() {
           />
         </div>
       </section>
+
+      <ScrollToTopDown scrollImage={scollImage} />
     </div>
   );
 }

@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import ScrollToTopDown from "../utilities/ScrollToTopDown";
 
 function About() {
-  const restPath = restBase + "pages/63?_fields=acf,title";
+  const restPath = restBase + "pages/63";
   const [restData, setRestData] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
@@ -25,6 +25,24 @@ function About() {
         const data = await response.json();
         setRestData(data);
         setIsLoaded(true);
+
+        // fetch SEO data
+
+        const title = data?.yoast_head_json?.title || data.title.rendered;
+        const description =
+          data?.yoast_head_json?.description || "About  Shanika Ekanayake";
+
+        document.title = title;
+
+        let metaTag = document.querySelector('meta[name="description"]');
+        if (metaTag) {
+          metaTag.setAttribute("content", description);
+        } else {
+          metaTag = document.createElement("meta");
+          metaTag.setAttribute("name", "description");
+          metaTag.setAttribute("content", description);
+          document.head.appendChild(metaTag);
+        }
 
         // Fetch profile image
         const profilePicId = data.acf?.["profile-pic"];
@@ -54,23 +72,24 @@ function About() {
   return (
     <div className="page-about mt-12 mb-12">
       <section className=" py-16 px-6 md:px-20 rounded-3xl">
-        <title>{`Shanika Ekanayake | ${
-          restData?.title?.rendered || "About"
-        }`}</title>
-
         <div className="flex flex-col-reverse md:flex-row items-center md:items-start gap-12 md:gap-20">
           {/* Text Section */}
           <div className="flex-1">
-            <h2 className="text-5xl font-bold mb-8 text-gray-800 dark:text-light_text">
+            <motion.h2
+              className="text-5xl font-bold mb-8 text-gray-800 dark:text-light_text"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
               Who I Am
-            </h2>
+            </motion.h2>
             <p className="text-gray-700 text-lg leading-relaxed text-center md:text-left dark:text-light_text">
               {restData?.acf?.brief_about_me}
             </p>
 
             <a
               href="#hobby"
-              className="inline-block px-6 py-3 bg-accent mt-12 text-white text-lg font-semibold rounded-full shadow-md hover:bg-dark transition duration-300"
+              className="inline-block px-4 md:px-6 py-3 bg-accent mt-12 text-white text-sm md:text-lg font-semibold rounded-full shadow-md hover:bg-dark dark:hover:bg-light_text dark:hover:text-dark transition duration-300"
             >
               🍰 See What I Love Doing!
             </a>
@@ -78,9 +97,14 @@ function About() {
 
           {/* Image & Name Section */}
           <div className="flex-1 flex flex-col items-center justify-center text-center">
-            <h1 className="text-4xl font-extrabold mb-6 text-gray-900 dark:text-accent">
+            <motion.h1
+              className="text-4xl font-extrabold mb-6 text-gray-900 dark:text-accent"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
+            >
               {restData?.acf?.name}
-            </h1>
+            </motion.h1>
             {profileImageUrl && (
               <img
                 src={profileImageUrl}

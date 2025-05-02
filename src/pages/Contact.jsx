@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { restBase } from "../utilities/Utilities";
 import Loading from "../utilities/Loading";
 import { motion } from "framer-motion";
-
-// Import all icon packs you'll use
 import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa";
 
 const iconComponents = {
@@ -17,7 +15,7 @@ function Contact() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
 
-  const restPath = restBase + "pages/71?_fields=acf,title";
+  const restPath = restBase + "pages/71?_fields=acf,title,yoast_head_json";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,6 +26,25 @@ function Contact() {
         const data = await res.json();
         setRestData(data);
         setIsLoaded(true);
+
+        // Set Title and Description from Yoast SEO data
+        if (data.yoast_head_json) {
+          const { title, description } = data.yoast_head_json;
+
+          document.title = title || "Contact | Shanika Ekanayake";
+
+          let metaDescription = document.querySelector(
+            'meta[name="description"]'
+          );
+          if (metaDescription) {
+            metaDescription.setAttribute("content", description || "");
+          } else {
+            metaDescription = document.createElement("meta");
+            metaDescription.setAttribute("name", "description");
+            metaDescription.setAttribute("content", description || "");
+            document.head.appendChild(metaDescription);
+          }
+        }
       } catch (err) {
         console.error(err);
         setError(err.message);
@@ -35,6 +52,10 @@ function Contact() {
     };
 
     fetchData();
+
+    return () => {
+      setRestData(null); // Clean-up if needed
+    };
   }, []);
 
   if (error) return <p className="text-red-500">{`Error: ${error}`}</p>;

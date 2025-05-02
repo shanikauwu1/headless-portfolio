@@ -1,4 +1,3 @@
-import { div } from "framer-motion/client";
 import loading from "../assets/loading.gif";
 
 const Loading = () => {

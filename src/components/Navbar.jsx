@@ -19,6 +19,7 @@ const Navbar = () => {
     <nav
       className={`flex justify-between items-center py-8 px-6 text-dark text-2xl lg:px-16 dark:text-white relative"
       }`}
+      role="navigation"
     >
       {/* Logo */}
       <Link
@@ -37,6 +38,8 @@ const Navbar = () => {
         <button
           onClick={toggleMenu}
           className="text-primary dark:text-white  focus:outline-none "
+          aria-expanded={isMenuOpen ? "true" : "false"} // Dynamically update the aria-expanded value
+          aria-controls="menu-list" // Ensure this matches the ID of the controlled menu
         >
           {isMenuOpen ? (
             // X icon
@@ -76,6 +79,7 @@ const Navbar = () => {
 
       {/* Nav Links */}
       <ul
+        id="menu-list"
         className={`
     lg:flex lg:space-x-6
     ${

@@ -2,7 +2,10 @@ import { FaLinkedin, FaGithub } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-secondary dark:bg-accent text-white py-4">
+    <footer
+      className="bg-secondary dark:bg-accent text-white py-4"
+      role="contentinfo"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-center items-center space-x-6">
           {/* LinkedIn Icon */}

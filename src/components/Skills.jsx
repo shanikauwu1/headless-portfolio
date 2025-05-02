@@ -17,8 +17,6 @@ function Skills() {
         );
         const skillsData = await skillsRes.json();
 
-        console.log(skillsData);
-
         // Fetch categories
         const catRes = await fetch(`${restBase}skill-category`);
         const catData = await catRes.json();

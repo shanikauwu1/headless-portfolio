@@ -16,7 +16,15 @@ function Project({ project }) {
       {/* Featured Image */}
       {featuredImage && (
         <img
-          src={featuredImage}
+          src={featuredImage} // fallback image
+          srcSet={`
+      ${featuredImage}?resize=480 480w,
+      ${featuredImage}?resize=768 768w,
+      ${featuredImage}?resize=1024 1024w
+    `}
+          sizes="(max-width: 640px) 480px,
+           (max-width: 768px) 768px,
+           1024px"
           alt={title.rendered}
           className="w-full h-48 object-cover"
         />
@@ -29,8 +37,8 @@ function Project({ project }) {
 
         {/* Truncated Description */}
         {acf?.description && (
-          <p className=" text-dark text-sm">
-            {truncateText(acf.description, 50)}
+          <p className=" text-dark text-sm text-center">
+            {truncateText(acf.description, 70)}
           </p>
         )}
 

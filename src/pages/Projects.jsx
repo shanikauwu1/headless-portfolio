@@ -22,15 +22,14 @@ function Projects() {
       }
     };
 
-    fetchCategories(); // Fetch categories on component mount
+    fetchCategories();
   }, []);
 
   // Fetch projects based on the active category
   useEffect(() => {
     const restPath = `${restBase}pfh-project?_embed`;
     const categoryParam =
-      activeCategory !== "all" ? `&project-category=${activeCategory}` : ""; // If not 'all', add category filter
-
+      activeCategory !== "all" ? `&project-category=${activeCategory}` : "";
     const fetchProjects = async () => {
       try {
         const res = await fetch(`${restPath}${categoryParam}`);
@@ -47,6 +46,26 @@ function Projects() {
     fetchProjects(); // Fetch projects when activeCategory changes
   }, [activeCategory]); // This effect will run every time the activeCategory changes
 
+  //   Manual SEO for projects page
+
+  useEffect(() => {
+    document.title = "Projects | Shanika Ekanayake";
+
+    //  Set or create meta description tag
+    let metaDescription = document.querySelector('meta[name="description"]');
+    const descriptionContent =
+      "Browse a collection of web development projects by Shanika Ekanayake, showcasing work in React, PHP, WordPress, and more.";
+
+    if (metaDescription) {
+      metaDescription.setAttribute("content", descriptionContent);
+    } else {
+      metaDescription = document.createElement("meta");
+      metaDescription.setAttribute("name", "description");
+      metaDescription.setAttribute("content", descriptionContent);
+      document.head.appendChild(metaDescription);
+    }
+  }, []);
+
   return (
     <section className="p-4 mb-12">
       <h2 className="text-4xl mb-8 font-semibold dark:text-light_text">
@@ -54,7 +73,7 @@ function Projects() {
       </h2>
 
       {/* Filter buttons */}
-      <div className="flex flex-wrap gap-2 mb-8">
+      <div className="flex flex-wrap gap-2 mb-12">
         <button
           onClick={() => setActiveCategory("all")}
           className={`px-4 py-2 rounded ${

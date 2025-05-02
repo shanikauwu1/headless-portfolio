@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { restBase } from "../utilities/Utilities";
 import Loading from "../utilities/Loading";
 import { FaLink, FaGithub, FaLightbulb, FaRocket } from "react-icons/fa";
+import computerMockup from "../assets/computer-bg.png";
 
 const SingleProject = () => {
   const { id } = useParams();
@@ -18,7 +19,24 @@ const SingleProject = () => {
         setProject(data);
         setIsLoaded(true);
 
-        // After project is fetched, get the skill IDs
+        const title = data?.yoast_head_json?.title || data.title.rendered;
+        const description =
+          data?.yoast_head_json?.description ||
+          "Explore this project in detail.";
+
+        document.title = title;
+
+        let metaTag = document.querySelector('meta[name="description"]');
+        if (metaTag) {
+          metaTag.setAttribute("content", description);
+        } else {
+          metaTag = document.createElement("meta");
+          metaTag.setAttribute("name", "description");
+          metaTag.setAttribute("content", description);
+          document.head.appendChild(metaTag);
+        }
+
+        // fetch and , get the skill IDs
         if (data.acf?.project_skills?.length > 0) {
           // Fetch each skill by ID
           const skillRequests = data.acf.project_skills.map((skillId) =>
@@ -52,13 +70,35 @@ const SingleProject = () => {
 
       <div className="flex flex-col lg:flex-row gap-12">
         <aside className="w-full lg:w-1/2 lg:pr-4">
-          {featuredImage && (
+          <div className="relative w-full max-w-2xl mx-auto">
+            {/* Computer mockup image */}
             <img
-              src={featuredImage}
-              alt={project.title.rendered}
-              className="w-full max-w-2xl mb-8 rounded"
+              src={computerMockup}
+              srcSet={`
+        ${computerMockup} 640w,
+        ${computerMockup} 768w,
+        ${computerMockup} 1024w
+      `}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 640px"
+              alt="Computer Mockup"
+              className="w-full"
             />
-          )}
+
+            {/* Project screenshot inside screen */}
+            {featuredImage && (
+              <img
+                src={featuredImage}
+                srcSet={`
+          ${featuredImage}?resize=480 480w,
+          ${featuredImage}?resize=768 768w,
+          ${featuredImage}?resize=1024 1024w
+        `}
+                sizes="(max-width: 640px) 92vw, (max-width: 1024px) 60vw, 600px"
+                alt={project.title.rendered}
+                className="absolute top-[5%] left-[4%] w-[92%] h-[65%] object-cover rounded-md shadow-md"
+              />
+            )}
+          </div>
         </aside>
 
         <article className="w-full lg:w-1/2 lg:pl-4">
@@ -96,7 +136,7 @@ const SingleProject = () => {
           </div>
         </article>
       </div>
-      <div>
+      <div className="mt-6 lg:mt-12">
         <h2 className="text-2xl md:text-3xl mb-12 font-semibold mt-4">
           Tools and Technologies
         </h2>

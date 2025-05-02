@@ -27,11 +27,22 @@ const App = () => {
   }
   return (
     <div className="flex flex-col min-h-screen">
+      {/* Skip Link */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only absolute left-4 top-4 z-50 bg-white text-black px-4 py-2 rounded shadow"
+      >
+        Skip to main content
+      </a>
       {/* Header */}
       <Header />
 
       {/* Main Content */}
-      <main className="flex-1 w-11/12 lg:w-4/5 mx-auto pt-16">
+      <main
+        id="main-content"
+        className="flex-1 w-11/12 lg:w-4/5 mx-auto pt-16"
+        role="main"
+      >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

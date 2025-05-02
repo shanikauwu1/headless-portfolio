@@ -34,7 +34,7 @@ function Projects() {
       try {
         const res = await fetch(`${restPath}${categoryParam}`);
         const data = await res.json();
-        console.log(data);
+        //console.log(data);
         setProjects(data);
         setIsLoaded(true);
       } catch (error) {

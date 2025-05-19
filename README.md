@@ -55,5 +55,8 @@ npm run dev
  📸 Live Demo
 🔗 https://shanikacode.in/
 
+## 📸 Screenshot
+
+![App Screenshot](./src/assets/homepage-headlesscms.png)
 
  

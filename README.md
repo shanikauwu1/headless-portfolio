@@ -41,12 +41,12 @@ State Management: useContext, useReducer
   </pre> 
 
 🛠️ Setup & Installation
-
+<pre>
 git clone https://github.com/shanikauwu1/headless-portfolio.git
 cd headless-portfolio
 npm install
 npm run dev
-
+</pre>
 🧪 TODO / Roadmap
 
  Add TypeScript support

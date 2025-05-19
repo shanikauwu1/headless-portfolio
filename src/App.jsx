@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 import SingleProject from "./pages/SingleProject";
 import SVGLogo from "./components/SVGLogo";
 import { useState, useEffect } from "react";
+import NotFound from "./pages/NotFound";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -49,6 +50,7 @@ const App = () => {
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/project/:id" element={<SingleProject />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
 

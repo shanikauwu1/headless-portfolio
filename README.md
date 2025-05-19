@@ -28,13 +28,14 @@ State Management: useContext, useReducer
 <pre lang="markdown"> 
 ├── public/
 ├── src/
+|   ├── assets/
 │   ├── components/
 │   ├── pages/
-│   ├── context/
 │   ├── utils/
 │   ├── App.jsx
 │   └── main.jsx
 ├── .eslintrc.cjs
+├── tailwind.config.js
 ├── vite.config.js
 └── README.md
   </pre> 

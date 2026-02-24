@@ -1,2 +1,2 @@
 export const restBase =
-  "https://shanikacode.in/headless-portfolio/wp-json/wp/v2/";
+  "https://shanikatech.info/headless-portfolio/wp-json/wp/v2/";
